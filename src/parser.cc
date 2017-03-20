@@ -490,19 +490,19 @@ void parseAtomFeed(xml_node<char> *feedNode, const Local<Object> &feed, bool ext
 
         // Extract the updated property.
 
-		char const *date = readTextNode(itemNode, "updated", deallocate);
-		if(date){
-			Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
-				Nan::New<String>(date).ToLocalChecked());
-		}
+        char const *date = readTextNode(itemNode, "updated", deallocate);
+        if(date){
+            Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
+                Nan::New<String>(date).ToLocalChecked());
+        }
         
-		// Extract the published property.
-		// Overwrites updated
+        // Extract the published property.
+        // Overwrites updated
 
         date = readTextNode(itemNode, "published", deallocate);
 
         if (date) {
-			Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
+            Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
                 Nan::New<String>(date).ToLocalChecked());
         }
 
