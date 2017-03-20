@@ -488,25 +488,22 @@ void parseAtomFeed(xml_node<char> *feedNode, const Local<Object> &feed, bool ext
                 Nan::New<String>(title).ToLocalChecked());
         }
 
-        // Extract the published property.
+        // Extract the updated property.
 
-        char const *date = readTextNode(itemNode, "published", deallocate);
+		char const *date = readTextNode(itemNode, "updated", deallocate);
+		if(date){
+			Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
+				Nan::New<String>(date).ToLocalChecked());
+		}
+        
+		// Extract the published property.
+		// Overwrites updated
+
+        date = readTextNode(itemNode, "published", deallocate);
 
         if (date) {
-
-            Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
+			Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
                 Nan::New<String>(date).ToLocalChecked());
-        }
-
-        // Extract the updated property.
-        // Overwrites date if there is no published
-
-        if (!date) {
-			date = readTextNode(itemNode, "updated", deallocate);
-			if(date){
-				Nan::Set(item, Nan::New<String>("date").ToLocalChecked(),
-					Nan::New<String>(date).ToLocalChecked());
-			}
         }
 
         // Extract the item author.
